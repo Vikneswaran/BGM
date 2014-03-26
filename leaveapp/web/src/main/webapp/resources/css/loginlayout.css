@@ -1,0 +1,79 @@
+body,div,td {
+    font-family: 'Maven Pro', sans-serif;
+    font-size: 14px;
+    word-wrap: break-word;
+}
+
+body {
+    background-color: #fefdfa;
+    text-align: center;
+}
+
+h1 {
+    background-color: #315d72;
+    border-radius: 14px;
+    border:2px solid #f06409;
+}
+
+img {
+    background: white;
+}
+
+#loginHeader {
+    font-size: 16px;
+    color: #fff;
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
+}
+
+#loginContainer {
+    margin-left: auto;
+    margin-right: auto;
+    width: 640px;
+}
+
+#loginForm {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#panel {
+    background-color: #f06409;
+    border-radius: 15px;
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+.ui-panelgrid tr, .ui-panelgrid td {
+    border:0 !important;
+}
+
+.ui-widget-header {
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    background-color: transparent;
+}
+
+.flabel {
+    color: #315d72;
+    font-weight: bold;
+}
+
+
+.ui-growl {
+    position: fixed;
+    top: 45%;
+    left: 63%;
+}
+
+.ui-growl-item-container {
+    background-image: none;
+    background-color: #e27129;  
+}
+
+input {
+	border-radius: 5px;
+}

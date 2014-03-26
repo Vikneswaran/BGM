@@ -1,0 +1,147 @@
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:pe="http://primefaces.org/ui/extensions" >
+	
+	
+<h:head>
+</h:head>
+	
+	 
+	<h:body>
+<ui:composition template="/templates/mainlayout.xhtml">
+
+<ui:define name="title">System Audit Trail Records</ui:define>
+    
+
+<!-- <b>From :</b> 
+        
+		<p:calendar value="#{systemAuditTrailMgmtBean.date1}" id="start1" shownOn="button"/>
+		   
+		<b>To :</b>   
+		<p:calendar value="#{systemAuditTrailMgmtBean.date2}" id="start2" shownOn="button" />
+		
+		  <p:commandButton action="#{systemAuditTrailMgmtBean.register}" value="Register" ajax="false" />
+
+  -->
+<ui:define name="content">
+        <h1>System Audit Trail Records</h1>
+		<h:form id="employeeGradeTabelForm">
+		
+		<!-- <p:dataTable id="auditTrailRecodTabel" widgetVar="trailAudit" var="trailRecord"></p:dataTable> -->
+		
+		<b>From : </b> 
+		<p:calendar value="#{systemAuditTrailMgmtBean.date1}" id="start1" shownOn="button"/>
+		   
+		<b>To : </b>   
+		<p:calendar value="#{systemAuditTrailMgmtBean.date2}" id="start2"  shownOn="button" />
+		
+		  <p:commandButton action="#{systemAuditTrailMgmtBean.register}" value="Search" update=":employeeGradeTabelForm:employeeGradeTabel" ajax="false"/>
+		     
+		  
+		  
+		
+        <p:dataTable id="employeeGradeTabel" widgetVar="employeeGradeTabel" var="employeeGrade0" value="#{systemAuditTrailMgmtBean.systemAuditTrailDataModel}" rowKey="#{employeeGrade0.id}"
+                 selection="#{systemAuditTrailMgmtBean.selectedSystemAuditTrail}" selectionMode="single" >
+          <p:ajax event="rowSelect" listener="#{systemAuditTrailMgmtBean.onRowSelect}" update=":employeeGradeDetailForm:display, :growl" oncomplete="PF('leaveTypeDialog').show()" />  
+       <!--    $('body').css('background-color','green'); -->
+                    
+          <p:column id="date" >
+            <f:facet name="header"> Date </f:facet>
+            <h:outputText value="#{employeeGrade0.date}" />
+          </p:column>
+          <p:column id="descHeader">
+            <f:facet name="header"> Description </f:facet>
+            <h:outputText value="#{employeeGrade0.description}" />
+          </p:column>
+        
+        <p:column id="actorHeader">
+            <f:facet name="header"> ActorUserId </f:facet>
+            <h:outputText value="#{employeeGrade0.actorUserId}" />
+          </p:column>
+        </p:dataTable>
+        
+        
+       
+    
+         
+      </h:form>      
+   <!--    $('.dlgCSS').css('background-color','red');  $('body').css('background-color','green');-->
+      <p:growl id="growl" showDetail="true" life="1000"/> 
+  </ui:define>  
+  
+  <ui:define name="dialog">
+      <p:dialog header="Employee Grade Detail" styleClass="dlgCSS" widgetVar="leaveTypeDialog" resizable="false" id="leaveTypeDlg" modal ="true">
+               <h:form id="employeeGradeDetailForm">
+    
+                <p:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
+ 
+                  <h:outputText value="Date :"></h:outputText>
+                        <h:inputText value="#{systemAuditTrailMgmtBean.selectedSystemAuditTrail.date}" required="true" requiredMessage="Please Enter DATE!"/>
+ 
+            <h:outputText value="Description :"></h:outputText>
+                        <h:inputText value="#{systemAuditTrailMgmtBean.selectedSystemAuditTrail.description}"/>
+ 
+ <h:outputText value="ActorUserId :"></h:outputText>
+                        <h:inputText value="#{systemAuditTrailMgmtBean.selectedSystemAuditTrail.actorUserId}"/>
+ 
+                    <f:facet name="footer">
+                            <p:commandButton value="Update" update=":employeeGradeTabelForm:employeeGradeTabel"  oncomplete="PF('leaveTypeDialog').hide()" actionListener="#{systemAuditTrailMgmtBean.doUpdate}" validateClient="true"/>
+                            <p:commandButton value="Delete" onclick="PF('cd').show()" oncomplete="PF('leaveTypeDialog').hide()"/>
+                            
+                           <!--  $('body').css('background-color','gray');  $('body').css('background-color','gray'); -->
+                    </f:facet>
+                </p:panelGrid>
+             </h:form>
+          </p:dialog>
+          
+          
+          
+          
+      <p:dialog header="Create New Employee Grade" styleClass="dlgCSS" widgetVar="newLeaveTypeDialog" resizable="false" id="newLeaveTypeDlg"  modal ="true">
+              <h:form id="newLeaveTypeForm">
+                <p:panelGrid id="displayNewLeaveType" columns="2" cellpadding="4" style="margin:0 auto;">
+            <h:outputText value="Date :"></h:outputText>
+                        <p:inputText value="#{systemAuditTrailMgmtBean.newSystemAuditTrail.date}" required="true" requiredMessage="Please Enter DATE!">
+                         <f:validateLength minimum="6" maximum="15"/></p:inputText>
+ 
+            <h:outputText value="Description :"></h:outputText>
+                        <p:inputText value="#{systemAuditTrailMgmtBean.newSystemAuditTrail.description}">  <f:validateLength minimum="6" maximum="15"/></p:inputText>
+ 
+            <h:outputText value="ActorUserId :"></h:outputText>
+                        <p:inputText value="#{systemAuditTrailMgmtBean.newSystemAuditTrail.actorUserId}">  <f:validateLength minimum="6" maximum="15"/></p:inputText>
+ 
+                    <f:facet name="footer">
+                            <p:commandButton value="Submit" update=":employeeGradeTabelForm:employeeGradeTabel"  oncomplete="PF('newLeaveTypeDialog').hide()" actionListener="#{systemAuditTrailMgmtBean.doCreateSystemAuditTrail}"/>
+                            <p:commandButton  update=":employeeGradeTabelForm:employeeGradeTabel" value="Reset" oncomplete=""></p:commandButton>
+                           <!--  $('body').css('background-color','gray');   $('body').css('background-color','gray') -->
+                    </f:facet>
+                </p:panelGrid>
+              </h:form>
+          </p:dialog>
+          
+          <p:confirmDialog message="Are you sure?" header="Deleting EmployeeGrade" 
+          	severity="alert" widgetVar="cd">	
+			<h:form>
+			<p:commandButton value="Yes" actionListener="#{systemAuditTrailMgmtBean.doDeleteSystemAuditTrail}" update=":employeeGradeTabelForm:employeeGradeTabel" oncomplete="PF('cd').hide();"/>
+			<p:commandButton value="No" onclick="PF('cd').hide();PF('leaveTypeDialog').show();" type="button" />
+			</h:form>
+			</p:confirmDialog>
+			
+			
+</ui:define>
+
+
+
+	
+</ui:composition>
+</h:body>
+
+
+</html>
+	
+	
+	

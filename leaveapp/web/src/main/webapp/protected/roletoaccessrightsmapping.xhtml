@@ -1,0 +1,66 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:pe="http://primefaces.org/ui/extensions" >
+
+<h:body>
+<ui:composition template="/templates/mainlayout.xhtml">
+
+<ui:define name="title">Role To Access Rights Mapping</ui:define>
+  
+           <ui:define name="content">
+		<h:form id="roleTableForm"> 
+	 
+	 	
+        <p:dataTable id="roleTable" var="role0" value="#{roleToAccessRightsMgmtBean.roleDataModel}" widgetVar="roleSearch" rowKey="#{role0.id}"
+                 selection="#{roleToAccessRightsMgmtBean.selectedRole}" selectionMode="single" filteredValue="#{roleToAccessRightsMgmtBean.searchRole}"  emptyMessage="No data found with given criteria" >
+        
+         <p:ajax event="rowSelect" listener="#{roleToAccessRightsMgmtBean.onRowSelect}" update=":roleTableForm,:roleDlg, :growl" oncomplete="PF('roleDialog').show()" />
+          
+                    
+	 	
+        <f:facet name="header">  
+            <h:outputText  value="Search by Role :"></h:outputText>
+          
+                       <h:inputText id="globalFilter"  onkeyup="roleSearch.filter()" />
+                         
+        </f:facet>           
+        
+          <p:column id="roleIdHeader"  headerText="Role Id" >
+            <h:outputText value="#{role0.id}" />
+          </p:column>      
+        	<p:column id="roleHeader"  headerText="Role" >
+            <h:outputText value="#{role0.role}" />
+          </p:column> 
+        </p:dataTable>       
+        
+      </h:form>      
+      
+      <p:growl id="growl" showDetail="true" life="1000"/> 
+  </ui:define>  
+<ui:define name="dialog">
+      <p:dialog header="Role To AccessRights Mapper" widgetVar="roleDialog" resizable="false" id="roleDlg" modal="true" >
+          <h3>Map Roles to User #{roleToAccessRightsMgmtBean.selectedRole.role}</h3>
+          <h:form>
+          <p:panelGrid id="displayNewRoleType" columns="2" cellpadding="4" style="margin:0 auto;">
+          	<p:pickList id="rolePickList" value="#{roleToAccessRightsMgmtBean.dualAccessRightsList}"
+          		var="accessRights0" converter="roleToAccessRightsPickListConverter" itemValue="#{accessRights0}" itemLabel="#{accessRights0.accessRights}" >
+          		
+          		
+          	 <f:facet name="sourceCaption">Unassigned  Access Rights</f:facet>  
+        		<f:facet name="targetCaption">Assigned Access Rights</f:facet>  
+          	</p:pickList>
+          	<f:facet name="footer">
+          	<p:commandButton value="Submit"  oncomplete="PF('roleDialog').hide()" actionListener="#{roleToAccessRightsMgmtBean.saveRoleToAccessRightsMapping}"/>
+            <p:commandButton value="Cancel" immediate="true" oncomplete="PF('roleDialog').hide()"></p:commandButton>
+            </f:facet>
+          </p:panelGrid>
+          </h:form>
+          </p:dialog>
+          </ui:define>
+</ui:composition>
+</h:body>
+</html>	

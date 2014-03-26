@@ -1,0 +1,44 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:body>
+
+	<h:form>
+
+		<p:growl id="messages" />
+
+		<!-- Need to add authorization based on role here -->
+		<p:menubar>
+			<p:menuitem value="Home" url="/protected/index.jsf" />
+			<p:menuitem value="My Profile" url="/protected/employeeprofile/myprofile.jsf"/>
+			<p:menuitem value="Employee List" url="/protected/employeeprofile/employeeprofilemgmt.jsf"/>
+			<p:submenu label="Administration">
+				<p:submenu label="Master Data Management">					
+					<p:menuitem value="Leave Type" url="/protected/leavetypemgmt.jsf" />
+					<p:menuitem value="Employee Grade" url="/protected/employeeGrade.jsf"/>
+					<p:menuitem value="System Audit Trail" url="/protected/systemAuditTrail.jsf"/>
+            
+				</p:submenu>
+				<p:submenu label="Access Control">
+					<p:menuitem value="Roles" url="/protected/role.jsf"/>
+					<p:menuitem value="User Role Mapping" url="/protected/usertorolemapping.jsf"/>
+					<p:menuitem value="Access Rights" url="/protected/accessRights.jsf"/>
+					<p:menuitem value="Role To Access Rights" url="/protected/roletoaccessrightsmapping.jsf"/>
+					
+				</p:submenu>
+			</p:submenu>
+			<p:menuitem value="Logout" action="${authenticationBean.doLogout}"></p:menuitem>
+		</p:menubar>
+
+
+	</h:form>
+
+</h:body>
+
+</html>
+

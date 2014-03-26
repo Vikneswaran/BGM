@@ -1,0 +1,16 @@
+1. Create CRUD for master data parameter (Under SQL Script)
+-Department
+-EmployeeGrade
+-EmployeeProfile
+-EmployeeType
+
+2. Create Pojo, repository
+3. Admin update profile and individual
+4. 
+
+Share installation 
+
+Different row different detail.
+Produce report.
+
+Create tomcat server, check-in, deploy.
