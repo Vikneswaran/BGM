@@ -18,6 +18,11 @@
 		<spring.security.version>3.2.0.RELEASE</spring.security.version>
 		<project.groupid>com.beans</project.groupid>
 		<project.version>1.0-SNAPSHOT</project.version>
+      <jboss-as.deploy.hostname>192.168.128.130</jboss-as.deploy.hostname>  <!-- Where to deploy. -->
+                <jboss-as.deploy.port>9999</jboss-as.deploy.port>
+        <jboss-as.deploy.user>beans</jboss-as.deploy.user>
+        <jboss-as.deploy.pass>beans123* </jboss-as.deploy.pass>
+
 		<hibernate.version>4.1.0.Final</hibernate.version>
 	</properties>
 	<dependencies>
@@ -171,12 +176,36 @@
   <artifactId>slf4j-log4j12</artifactId>
   <version>1.7.6</version>
 </dependency>
-            
-            
-	</dependencies>
+
+
+		</dependencies>
+	
+	
 	<build>
-		<finalName>web</finalName>
-	</build>
+			<finalName>web</finalName>
+	
+	<plugins>
+	 <plugin>
+    <groupId>org.wildfly.plugins</groupId>
+    <artifactId>wildfly-maven-plugin</artifactId>
+    <version>1.0.1.Final</version>
+    
+           
+        <configuration>
+            <hostname>192.168.128.130</hostname>
+            <port>9999</port>
+            <username>beans</username>
+            <password>beans123*</password>
+            <name>${backend.deployment-name}</name>
+            <filename>web.war</filename>
+        </configuration>
+        
+           
+</plugin>
+</plugins>
+</build>
+	
+	
 
 	<repositories>
 		<repository>

@@ -13,7 +13,10 @@
   </modules>
   <properties>
   	<spring.framework.version>4.0.0.RELEASE</spring.framework.version>
+  	  
   </properties>
+  
+ 
   <dependencies>
   
   	<dependency>
@@ -33,9 +36,14 @@
                         <target>1.6</target>
                     </configuration>
                 </plugin>
+               
             </plugins>
+             
         </pluginManagement>
+
+  	
   </build>
+  
   
   <repositories>
 		<repository>
